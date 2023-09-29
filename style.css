@@ -1,0 +1,48 @@
+
+.high-score {
+    display: flex;
+    background-color: green;
+    padding: 1%;
+    width: 10%;
+}
+
+.high-score > h2 {
+    background-color: red;
+    width: 100%;
+    text-align: center;
+}
+body {
+    display: flex;
+    padding: 1%;
+    background-color: blue;
+}
+
+body > main {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+main > h1 {
+    background-color: blueviolet;
+    min-height: 70%;
+    font-size: xx-large;
+}
+
+main > button {
+    background-color:green;
+    border: 2px solid yellow;
+    width: 10%;
+    height:10%;
+    font-size: 150%;
+}
+
+section {
+    background-color: orange;
+    width: 10%;
+}
+section > p {
+    font-size: 150%;
+}

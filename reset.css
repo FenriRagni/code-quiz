@@ -1,0 +1,41 @@
+/* Resetting CSS: A CSS reset is a set of styles that you load before your other styles to remove 
+built-in browser styles. Every browser has its own user agent stylesheet, 
+which it employs to make unstyled websites more readable. Most browsers, for example, 
+make links blue and visited links purple by default, add a border and padding to tables, 
+apply various font sizes to H1, H2, H3, and practically everything, and apply a specific 
+amount of padding to almost everything. */
+
+
+/* Resets the box size of every element */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Gives the body element a parent height to compare against */
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  line-height: 1;
+  font-family: sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+}
+
+/* Matches the font of special elements to the rest of the page */
+input, select, option, optgroup, textarea, button,
+pre, code {
+  font-size: 100%;
+  font-family: inherit;
+}
+
+/* Removes default bullet points from lists */
+ol, ul {
+  list-style: none;
+}
