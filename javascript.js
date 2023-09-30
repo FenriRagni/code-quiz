@@ -6,8 +6,9 @@ var ans3 = document.createElement("li");
 var ans4 = document.createElement("li");
 var btn = document.createElement("button");
 var main = document.querySelector("main");
+var highScore =document.querySelector("#highScore");
 var timeRemaining;
-var timer;
+var timerText = document.querySelector("#timer");
 var currentQuestion = 0;
 var questions = {
     q: ["Which of the following is NOT a semantic element?",
@@ -28,34 +29,69 @@ answers.appendChild(ans1);
 answers.appendChild(ans2);
 answers.appendChild(ans3);
 answers.appendChild(ans4);
+
 main.appendChild(btn);
+// showQuestion();
 btn.textContent = "Start Quiz";
 
 function startGame() {
     timeRemaining = 50;
     currentQuestion = 0;
+    main.removeChild(btn);
     showQuestion();
+    updateTimer();
+    timer = setInterval(function() {
+        if(timeRemaining===0){
+            endGame();
+        }
+        else{
+            timeRemaining--;
+            updateTimer();
+        }
+    },1000)
 }
 
 function showQuestion() {
+    console.log(currentQuestion);
+    console.log(questions.q.length);
     if(currentQuestion === questions.q.length) {
         endGame();
         return;
     }
+    else{
     question.textContent = questions.q[currentQuestion];
-    main.removeChild(btn);
     question.appendChild(answers);
     ans1.textContent = questions.a[currentQuestion][0];
     ans2.textContent = questions.a[currentQuestion][1];
     ans3.textContent = questions.a[currentQuestion][2];
     ans4.textContent = questions.a[currentQuestion][3];
+    highScore.textContent = "";
+    }
 }
 
 function updateTimer() {
-    
+    timerText.textContent = "Timer: " + timeRemaining;
 }
 
-btn.addEventListener("click", startGame);
+function endGame(){
+
+}
+
+function checkAnswer(event){
+    if(event.textContent === questions.correct[currentQuestion]){
+    }
+    else{
+        timeRemaining = timeRemaining - 5;
+    }
+    currentQuestion++;
+    showQuestion();
+}
+
+ans1.addEventListener("click",checkAnswer);
+ans2.addEventListener("click",checkAnswer);
+ans3.addEventListener("click",checkAnswer);
+ans4.addEventListener("click",checkAnswer);
+btn.addEventListener("click",startGame);
 //variable declaritions
     //timeRemaining
 //querySelectors
