@@ -1,3 +1,41 @@
+var question = document.querySelector("h1");
+var answers = document.createElement("ol");
+var ans1 = document.createElement("li");
+var ans2 = document.createElement("li");
+var ans3 = document.createElement("li");
+var ans4 = document.createElement("li");
+var btn = document.createElement("button");
+var main = document.querySelector("main");
+var timeRemaining;
+var timer;
+var questions = {
+    q: ["Which of the following is NOT a semantic element?",
+        "Which of the following is NOT a class selector?",
+        "Which of the following is necessary to link a Javascript file with your html file?",
+        "Which of the following sets <p> to say 'Hello'",
+        "What was the answer to question 1?",
+        "The correct answer is a"],
+    a: [["main", "header", "div", "section"],
+        [".box", "#light", ".fans", ".dark"],
+        ["src", "href", "ref", "a"],
+        ["p.textContent('Hello')", "p.setAttribute('Hello')", "p = texContent('Hello')", "p.textContent = 'Hello'"],
+        ["#light", "div", "src", "main"],
+        ["a", "b", "c","d"]],
+    correct: [2, 1, 0, 3, 1]
+}
+main.appendChild(btn);
+btn.textContent = "Start Quiz";
+
+
+function startGame() {
+    timeRemaining = 50;
+}
+
+function showQuestion() {
+
+}
+
+btn.addEventListener("click", startGame);
 //variable declaritions
     //timeRemaining
 //querySelectors
