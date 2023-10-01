@@ -7,6 +7,10 @@ var ans4 = document.createElement("li");
 var btn = document.createElement("button");
 var main = document.querySelector("main");
 var highScore =document.querySelector("#highScore");
+var highScoreEntry = {
+    name: [],
+    score: []
+};
 var timeRemaining;
 var timerText = document.querySelector("#timer");
 var currentQuestion = 0;
@@ -30,8 +34,10 @@ answers.appendChild(ans2);
 answers.appendChild(ans3);
 answers.appendChild(ans4);
 
+console.log(answers);
+console.log(ans1);
+
 main.appendChild(btn);
-// showQuestion();
 btn.textContent = "Start Quiz";
 
 function startGame() {
@@ -41,7 +47,7 @@ function startGame() {
     showQuestion();
     updateTimer();
     timer = setInterval(function() {
-        if(timeRemaining===0){
+        if(timeRemaining<=0){
             endGame();
         }
         else{
@@ -52,8 +58,8 @@ function startGame() {
 }
 
 function showQuestion() {
-    console.log(currentQuestion);
-    console.log(questions.q.length);
+    console.log("currentQuestion: " + currentQuestion);
+    console.log("# of questions: " +questions.q.length);
     if(currentQuestion === questions.q.length) {
         endGame();
         return;
@@ -74,19 +80,31 @@ function updateTimer() {
 }
 
 function endGame(){
-
+    var initials = prompt("Please enter your initials!");
+    clearInterval(timer);
+    highScoreEntry.name.push(initials);
+    highScoreEntry.score.push(timeRemaining);
+    localStorage.setItem("hiScore", JSON.stringify(highScoreEntry));
 }
 
 function checkAnswer(event){
-    if(event.textContent === questions.correct[currentQuestion]){
+    console.log(event.target.textContent);
+    console.log(questions.a[currentQuestion][questions.correct[currentQuestion]]);
+    if(event.target.textContent === questions.a[currentQuestion][questions.correct[currentQuestion]]){
     }
     else{
         timeRemaining = timeRemaining - 5;
+        updateTimer();
     }
     currentQuestion++;
     showQuestion();
 }
 
+function swapScore(){
+
+}
+
+highScore.addEventListener("click", swapScore);
 ans1.addEventListener("click",checkAnswer);
 ans2.addEventListener("click",checkAnswer);
 ans3.addEventListener("click",checkAnswer);

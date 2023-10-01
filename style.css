@@ -49,3 +49,12 @@ section > h2 {
     background-color: purple;
     font-size: 150%;
 }
+
+ol {
+    list-style:lower-alpha;
+    padding-left:20%;
+    padding-top:10%;
+}
+ol > li {
+padding: 2%;
+}
