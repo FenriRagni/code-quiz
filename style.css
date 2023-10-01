@@ -5,7 +5,7 @@ header {
     width: 10%;
 }
 
-header > h2 {
+header > ul {
     background-color: red;
     font-size: 150%;
     text-wrap: wrap;

@@ -6,11 +6,8 @@ var ans3 = document.createElement("li");
 var ans4 = document.createElement("li");
 var btn = document.createElement("button");
 var main = document.querySelector("main");
-var highScore =document.querySelector("#highScore");
-var highScoreEntry = {
-    name: [],
-    score: []
-};
+var header = document.querySelector("header");
+var highScoreDisplay = document.querySelector("#highScore");
 var timeRemaining;
 var timerText = document.querySelector("#timer");
 var currentQuestion = 0;
@@ -29,13 +26,18 @@ var questions = {
         ["a", "b", "c","d"]],
     correct: [2, 1, 0, 3, 1, 0]
 }
+var highScoreEntry = JSON.parse(localStorage.getItem("hiScore"));
+if(highScoreEntry === null) {
+    highScoreEntry = {
+        name: [],
+        score: []
+    }
+}
+
 answers.appendChild(ans1);
 answers.appendChild(ans2);
 answers.appendChild(ans3);
 answers.appendChild(ans4);
-
-console.log(answers);
-console.log(ans1);
 
 main.appendChild(btn);
 btn.textContent = "Start Quiz";
@@ -44,6 +46,7 @@ function startGame() {
     timeRemaining = 50;
     currentQuestion = 0;
     main.removeChild(btn);
+    header.removeChild(highScoreDisplay);
     showQuestion();
     updateTimer();
     timer = setInterval(function() {
@@ -71,7 +74,6 @@ function showQuestion() {
     ans2.textContent = questions.a[currentQuestion][1];
     ans3.textContent = questions.a[currentQuestion][2];
     ans4.textContent = questions.a[currentQuestion][3];
-    highScore.textContent = "";
     }
 }
 
@@ -84,12 +86,14 @@ function endGame(){
     clearInterval(timer);
     highScoreEntry.name.push(initials);
     highScoreEntry.score.push(timeRemaining);
+    question.removeChild(answers);
+    question.textContent = "Do you want to play Again?";
+    main.appendChild(btn);
     localStorage.setItem("hiScore", JSON.stringify(highScoreEntry));
+    header.appendChild(highScoreDisplay);
 }
 
 function checkAnswer(event){
-    console.log(event.target.textContent);
-    console.log(questions.a[currentQuestion][questions.correct[currentQuestion]]);
     if(event.target.textContent === questions.a[currentQuestion][questions.correct[currentQuestion]]){
     }
     else{
@@ -102,7 +106,25 @@ function checkAnswer(event){
 
 function swapScore(){
 
+    if(highScore.getAttribute("data-state")==="off" && 
+        highScoreEntry.name.length > highScoreDisplay.childElementCount){
+        highScore.setAttribute("data-state", "on");
+        for(var x = 0; x < highScoreEntry.name.length; x++){
+            tempLi = document.createElement("li");
+            tempLi.textContent = highScoreEntry.name[x] + ": " + highScoreEntry.score[x];
+            highScoreDisplay.appendChild(tempLi);
+        }
+
+    }
+    else {
+        highScore.setAttribute("data-state","off");
+        var numScores = highScoreDisplay.childElementCount;
+        for(var x = 0; x < numScores; x++){
+        highScoreDisplay.removeChild(highScoreDisplay.lastChild);
+        }
+    }
 }
+
 
 highScore.addEventListener("click", swapScore);
 ans1.addEventListener("click",checkAnswer);
