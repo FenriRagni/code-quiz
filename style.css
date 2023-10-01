@@ -1,12 +1,14 @@
 :root {
-    --main-color: aliceblue;
+    --main-color: aliceblue; 
 }
+
 header {
     background-color: var(--main-color);
     padding: 1%;
     width: 10%;
 }
 
+/* class for when highScores are not shown */
 .off {
     font-size: 150%;
     padding: 1%;
@@ -15,6 +17,8 @@ header {
     border-radius: 5px;
     cursor: pointer;
 }
+
+/* class for when highScores are shown */
 .on {
     background-color: silver;
     font-size: 150%;
@@ -24,6 +28,7 @@ header {
     border-radius: 5px;
     cursor: pointer;
 }
+
 body {
     display: flex;
     padding: 1%;
@@ -40,7 +45,6 @@ body > main {
 }
 
 main > h1 {
-    /* background-color: blueviolet; */
     min-height: 70%;
     font-size: xx-large;
 }
@@ -59,6 +63,7 @@ section {
     padding: 1%;
     width: 10%;
 }
+
 section > h2 {
     background-color: var(--main-color);
     font-size: 150%;
