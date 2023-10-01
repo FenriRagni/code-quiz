@@ -55,6 +55,10 @@ main > h1 {
     font-size: xx-large;
 }
 
+h1 > p {
+    margin-top: 20%;
+}
+
 main > button {
     background-color:silver;
     border: 2px solid gray;

@@ -7,26 +7,33 @@ var ans4 = document.createElement("li");    //created and manipulated
 var btn = document.createElement("button");
 var main = document.querySelector("main");
 var header = document.querySelector("header");
+var yourScore = document.createElement("p");
 var highScoreDisplay = document.querySelector("#highScore");
 var highScoreEntry = JSON.parse(localStorage.getItem("hiScore"));
 var timerText = document.querySelector("#timer");
 var currentQuestion;
+var totalQuestions;
+var random;
 var timeRemaining;
-var questions = { //object with each question, the answer, and which answer is correct in the array
+var setQuestions = { //object with each question, the answer, and which answer is correct in the array
     q: ["Which of the following is NOT a semantic element?",
         "Which of the following is NOT a class selector?",
         "Which of the following is necessary to link a Javascript file with your html file?",
         "Which of the following sets <p> to say 'Hello'",
-        "What was the answer to question 1?",
+        "What function is used to repeat something after a certain amount of time?",
         "The correct answer is 'a'"],
     a: [["main", "header", "div", "section"],
         [".box", "#light", ".fans", ".dark"],
         ["src", "href", "ref", "a"],
         ["p.textContent('Hello')", "p.setAttribute('Hello')", "p = texContent('Hello')", "p.textContent = 'Hello'"],
-        ["#light", "div", "src", "main"],
+        ["for()", "setInterval()", "setTimeout()", "wait()"],
         ["a", "b", "c","d"]],
     correct: [2, 1, 0, 3, 1, 0]
 }
+
+var tempQuestions = setQuestions;
+console.log(setQuestions);
+console.log(tempQuestions);
 
 //checks to see there were scores already saved in local storage
 //if not, set the entry to empty arrays
@@ -51,7 +58,12 @@ btn.textContent = "Start Quiz";
 function startGame() {
     timeRemaining = 50;
     currentQuestion = 0;
+    totalQuestions = setQuestions.a.length;
+    console.log(totalQuestions);
     main.removeChild(btn);
+    if(question.childElementCount > 1){
+        question.removeChild(yourScore);
+    }
     header.removeChild(highScoreDisplay);
     showQuestion();
     updateTimer();
@@ -72,17 +84,20 @@ function startGame() {
 function showQuestion() {
     //checks if final question has been shown
     //ends the game if true
-    if(currentQuestion === questions.q.length) { 
+    if(currentQuestion === totalQuestions-1) { 
         endGame();
         return;
     }
     else{
-    question.textContent = questions.q[currentQuestion];
+    console.log(totalQuestions);
+    random = Math.floor(Math.random() * tempQuestions.q.length);
+    console.log(random);
+    question.textContent = tempQuestions.q[random];
     question.appendChild(answers);
-    ans1.textContent = questions.a[currentQuestion][0];
-    ans2.textContent = questions.a[currentQuestion][1];
-    ans3.textContent = questions.a[currentQuestion][2];
-    ans4.textContent = questions.a[currentQuestion][3];
+    ans1.textContent = tempQuestions.a[random][0];
+    ans2.textContent = tempQuestions.a[random][1];
+    ans3.textContent = tempQuestions.a[random][2];
+    ans4.textContent = tempQuestions.a[random][3];
     }
 }
 
@@ -107,6 +122,10 @@ function endGame(){
     highScoreEntry.score.push(timeRemaining);
     question.removeChild(answers);
     question.textContent = "Want to try again?";
+    yourScore.textContent = "Your Score: " + timeRemaining;
+    timerText.textContent = "Timer:";
+    question.appendChild(yourScore);
+    timerText.setAttribute("class", "tik");
     main.appendChild(btn);
     localStorage.setItem("hiScore", JSON.stringify(highScoreEntry));
     header.appendChild(highScoreDisplay);
@@ -115,17 +134,22 @@ function endGame(){
 //checks if the user selected the correct answer
 //if user answered wrong, we take away 5 seconds from timer and update
 function checkAnswer(event){
-    if(event.target.textContent === questions.a[currentQuestion][questions.correct[currentQuestion]]){
+    if(event.target.textContent === tempQuestions.a[random][tempQuestions.correct[random]]){
     }
     else{
         timeRemaining = timeRemaining - 5;
         updateTimer();
     }
     currentQuestion++;
+    console.log(tempQuestions);
+    console.log(setQuestions);
+    tempQuestions.a.splice(random,1);
+    tempQuestions.q.splice(random,1);
+    tempQuestions.correct.splice(random,1);
     showQuestion();
 }
 
-function sortScores(){
+function sortScores(array){
      
 }
 //swaps whether a high scores list is shown
@@ -136,7 +160,7 @@ function swapScore(){ //only adds new elements if there are new scores
         highScore.setAttribute("class","on");
         for(var x = 0; x < highScoreEntry.name.length; x++){
             tempLi = document.createElement("li");
-            if(highScoreEntry.name[x]===null){ //if user didn't enter intials set name = NA
+            if(highScoreEntry.name[x]===null||highScoreEntry.name[x]=== ""){ //if user didn't enter intials set name = NA
                 tempLi.textContent = "NA: " + highScoreEntry.score[x];
             }
             else{
