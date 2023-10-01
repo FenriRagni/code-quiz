@@ -149,8 +149,19 @@ function checkAnswer(event){
     showQuestion();
 }
 
-function sortScores(array){
-     
+function sortScores(){
+    console.log(highScoreEntry);
+    console.log(highScoreEntry.score.length);
+    console.log(highScoreEntry.score[0]);
+    console.log(highScoreEntry.name[0]);
+    for(var i = 0; i < highScoreEntry.score.length;i++){
+        for(var x = 0; x < highScoreEntry.score.length; x++){
+            if(highScoreEntry.score[x] < highScoreEntry.score[i]){
+                [highScoreEntry.score[x],highScoreEntry.score[i]] = [highScoreEntry.score[i],highScoreEntry.score[x]];
+                [highScoreEntry.name[x],highScoreEntry.name[i]] = [highScoreEntry.name[i],highScoreEntry.name[x]];
+            }
+        }
+    }
 }
 //swaps whether a high scores list is shown
 function swapScore(){ //only adds new elements if there are new scores
@@ -158,6 +169,7 @@ function swapScore(){ //only adds new elements if there are new scores
         highScoreEntry.name.length > highScoreDisplay.childElementCount){
         highScore.setAttribute("data-state", "on");
         highScore.setAttribute("class","on");
+        sortScores();
         for(var x = 0; x < highScoreEntry.name.length; x++){
             tempLi = document.createElement("li");
             if(highScoreEntry.name[x]===null||highScoreEntry.name[x]=== ""){ //if user didn't enter intials set name = NA
