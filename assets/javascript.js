@@ -125,6 +125,9 @@ function checkAnswer(event){
     showQuestion();
 }
 
+function sortScores(){
+     
+}
 //swaps whether a high scores list is shown
 function swapScore(){ //only adds new elements if there are new scores
     if(highScore.getAttribute("data-state")==="off" && 
