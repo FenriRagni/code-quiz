@@ -1,17 +1,20 @@
 :root {
-    --main-color: aliceblue; 
+    --main-color: purple; 
+    --accent-color: skyblue;
 }
 
 header {
     background-color: var(--main-color);
     padding: 1%;
     width: 10%;
+    user-select: none;
 }
 
 /* class for when highScores are not shown */
 .off {
     font-size: 150%;
     padding: 1%;
+    color: white;
     text-wrap: wrap;
     text-align: center;
     border-radius: 5px;
@@ -20,7 +23,7 @@ header {
 
 /* class for when highScores are shown */
 .on {
-    background-color: silver;
+    background-color: var(--accent-color);
     font-size: 150%;
     padding: 1%;
     text-wrap: wrap;
@@ -32,12 +35,12 @@ header {
 body {
     display: flex;
     padding: 1%;
-    background-color: blue;
+    background-color: var(--accent-color);
 }
 
 body > main {
     display: flex;
-    background-color: aliceblue;
+    background-color: var(--main-color);
     flex-direction: column;
     width: 80%;
     justify-content: space-evenly;
@@ -45,6 +48,9 @@ body > main {
 }
 
 main > h1 {
+    background-color: purple;
+    color: white;
+    padding: 2%;
     min-height: 70%;
     font-size: xx-large;
 }
@@ -64,18 +70,32 @@ section {
     width: 10%;
 }
 
-section > h2 {
+.tik {
     background-color: var(--main-color);
+    color: white;
     font-size: 150%;
 }
 
+.tok {
+    color: var(--accent-color);
+    font-size: 150%;
+}
+
+
 ol {
-    list-style:lower-alpha;
-    padding-left:20%;
-    padding-top:10%;
-    text-align: left;
+    padding: 5%;
+    text-align: center;
 }
 ol > li {
     padding: 2%;
+    margin: 2%;
     cursor: pointer;
+    background-color: var(--accent-color);
+    color:black;
+    border-radius: 25px;
+    min-width: 50%;
+}
+
+ol > li:hover {
+    background-color: lightblue;
 }

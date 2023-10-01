@@ -62,6 +62,7 @@ function startGame() {
         else{
             timeRemaining--;
             updateTimer();
+
         }
     },1000)
 }
@@ -87,7 +88,14 @@ function showQuestion() {
 
 //updates the timer
 function updateTimer() {
+    if(timerText.getAttribute("class") === "tik"){
+        timerText.setAttribute("class", "tok");
+    }
+    else {
+        timerText.setAttribute("class", "tik");
+    }
     timerText.textContent = "Timer: " + timeRemaining;
+
 }
 
 //prompts user for intials input then saves initials and score to localStorage
