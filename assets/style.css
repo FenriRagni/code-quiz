@@ -3,11 +3,13 @@
     --accent-color: skyblue;
 }
 
+body {
+    user-select: none;
+}
 header {
     background-color: var(--main-color);
     padding: 1%;
     width: 10%;
-    user-select: none;
 }
 
 /* class for when highScores are not shown */

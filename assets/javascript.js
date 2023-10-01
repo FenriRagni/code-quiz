@@ -31,9 +31,9 @@ var setQuestions = { //object with each question, the answer, and which answer i
     correct: [2, 1, 0, 3, 1, 0]
 }
 
-var tempQuestions = setQuestions;
+var setQuestions = setQuestions;
 console.log(setQuestions);
-console.log(tempQuestions);
+console.log(setQuestions);
 
 //checks to see there were scores already saved in local storage
 //if not, set the entry to empty arrays
@@ -90,14 +90,14 @@ function showQuestion() {
     }
     else{
     console.log(totalQuestions);
-    random = Math.floor(Math.random() * tempQuestions.q.length);
+    random = Math.floor(Math.random() * setQuestions.q.length);
     console.log(random);
-    question.textContent = tempQuestions.q[random];
+    question.textContent = setQuestions.q[random];
     question.appendChild(answers);
-    ans1.textContent = tempQuestions.a[random][0];
-    ans2.textContent = tempQuestions.a[random][1];
-    ans3.textContent = tempQuestions.a[random][2];
-    ans4.textContent = tempQuestions.a[random][3];
+    ans1.textContent = setQuestions.a[random][0];
+    ans2.textContent = setQuestions.a[random][1];
+    ans3.textContent = setQuestions.a[random][2];
+    ans4.textContent = setQuestions.a[random][3];
     }
 }
 
@@ -129,23 +129,39 @@ function endGame(){
     main.appendChild(btn);
     localStorage.setItem("hiScore", JSON.stringify(highScoreEntry));
     header.appendChild(highScoreDisplay);
+    offScore();
+    setQuestions = { //object with each question, the answer, and which answer is correct in the array
+        q: ["Which of the following is NOT a semantic element?",
+            "Which of the following is NOT a class selector?",
+            "Which of the following is necessary to link a Javascript file with your html file?",
+            "Which of the following sets <p> to say 'Hello'",
+            "What function is used to repeat something after a certain amount of time?",
+            "The correct answer is 'a'"],
+        a: [["main", "header", "div", "section"],
+            [".box", "#light", ".fans", ".dark"],
+            ["src", "href", "ref", "a"],
+            ["p.textContent('Hello')", "p.setAttribute('Hello')", "p = texContent('Hello')", "p.textContent = 'Hello'"],
+            ["for()", "setInterval()", "setTimeout()", "wait()"],
+            ["a", "b", "c","d"]],
+        correct: [2, 1, 0, 3, 1, 0]
+    }
 }
 
 //checks if the user selected the correct answer
 //if user answered wrong, we take away 5 seconds from timer and update
 function checkAnswer(event){
-    if(event.target.textContent === tempQuestions.a[random][tempQuestions.correct[random]]){
+    if(event.target.textContent === setQuestions.a[random][setQuestions.correct[random]]){
     }
     else{
         timeRemaining = timeRemaining - 5;
         updateTimer();
     }
     currentQuestion++;
-    console.log(tempQuestions);
     console.log(setQuestions);
-    tempQuestions.a.splice(random,1);
-    tempQuestions.q.splice(random,1);
-    tempQuestions.correct.splice(random,1);
+    console.log(setQuestions);
+    setQuestions.a.splice(random,1);
+    setQuestions.q.splice(random,1);
+    setQuestions.correct.splice(random,1);
     showQuestion();
 }
 
@@ -183,13 +199,17 @@ function swapScore(){ //only adds new elements if there are new scores
 
     }
     else {
-        highScore.setAttribute("data-state","off");
+        offScore();
+    }
+}
+
+function offScore(){
+    highScore.setAttribute("data-state","off");
         highScore.setAttribute("class","off");
         var numScores = highScoreDisplay.childElementCount;
         for(var x = 0; x < numScores; x++){
         highScoreDisplay.removeChild(highScoreDisplay.lastChild);
         }
-    }
 }
 
 //different event "click" listeners
