@@ -109,15 +109,22 @@ function swapScore(){
     if(highScore.getAttribute("data-state")==="off" && 
         highScoreEntry.name.length > highScoreDisplay.childElementCount){
         highScore.setAttribute("data-state", "on");
+        highScore.setAttribute("class","on");
         for(var x = 0; x < highScoreEntry.name.length; x++){
             tempLi = document.createElement("li");
+            if(highScoreEntry.name[x]===null){
+                tempLi.textContent = "NA: " + highScoreEntry.score[x];
+            }
+            else{
             tempLi.textContent = highScoreEntry.name[x] + ": " + highScoreEntry.score[x];
+            }
             highScoreDisplay.appendChild(tempLi);
         }
 
     }
     else {
         highScore.setAttribute("data-state","off");
+        highScore.setAttribute("class","off");
         var numScores = highScoreDisplay.childElementCount;
         for(var x = 0; x < numScores; x++){
         highScoreDisplay.removeChild(highScoreDisplay.lastChild);

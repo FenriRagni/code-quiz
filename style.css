@@ -1,15 +1,28 @@
-
+:root {
+    --main-color: aliceblue;
+}
 header {
-    background-color: green;
+    background-color: var(--main-color);
     padding: 1%;
     width: 10%;
 }
 
-header > ul {
-    background-color: red;
+.off {
     font-size: 150%;
+    padding: 1%;
     text-wrap: wrap;
     text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.on {
+    background-color: silver;
+    font-size: 150%;
+    padding: 1%;
+    text-wrap: wrap;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
 }
 body {
     display: flex;
@@ -27,26 +40,27 @@ body > main {
 }
 
 main > h1 {
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     min-height: 70%;
     font-size: xx-large;
 }
 
 main > button {
-    background-color:green;
-    border: 2px solid yellow;
+    background-color:silver;
+    border: 2px solid gray;
     width: 20%;
     height:10%;
     font-size: 150%;
+    cursor: pointer;
 }
 
 section {
-    background-color: orange;
+    background-color: var(--main-color);
     padding: 1%;
     width: 10%;
 }
 section > h2 {
-    background-color: purple;
+    background-color: var(--main-color);
     font-size: 150%;
 }
 
@@ -54,7 +68,9 @@ ol {
     list-style:lower-alpha;
     padding-left:20%;
     padding-top:10%;
+    text-align: left;
 }
 ol > li {
-padding: 2%;
+    padding: 2%;
+    cursor: pointer;
 }
