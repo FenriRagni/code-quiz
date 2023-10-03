@@ -9,7 +9,7 @@ var main = document.querySelector("main");
 var header = document.querySelector("header");
 var yourScore = document.createElement("p");
 var highScoreDisplay = document.querySelector("#highScore");
-var highScoreEntry = JSON.parse(localStorage.getItem("hiScore"));
+var entry = JSON.parse(localStorage.getItem("hiScore"));
 var timerText = document.querySelector("#timer");
 var currentQuestion;
 var totalQuestions;
@@ -37,8 +37,8 @@ console.log(setQuestions);
 
 //checks to see there were scores already saved in local storage
 //if not, set the entry to empty arrays
-if(highScoreEntry === null) {
-    highScoreEntry = {
+if(entry === null) {
+    entry = {
         name: [],
         score: []
     }
@@ -118,8 +118,8 @@ function updateTimer() {
 function endGame(){
     var initials = prompt("Please enter your initials!");
     clearInterval(timer);
-    highScoreEntry.name.push(initials);
-    highScoreEntry.score.push(timeRemaining);
+    entry.name.push(initials);
+    entry.score.push(timeRemaining);
     question.removeChild(answers);
     question.textContent = "Want to try again?";
     yourScore.textContent = "Your Score: " + timeRemaining;
@@ -127,7 +127,7 @@ function endGame(){
     question.appendChild(yourScore);
     timerText.setAttribute("class", "tik");
     main.appendChild(btn);
-    localStorage.setItem("hiScore", JSON.stringify(highScoreEntry));
+    localStorage.setItem("hiScore", JSON.stringify(entry));
     header.appendChild(highScoreDisplay);
     offScore();
     setQuestions = { //object with each question, the answer, and which answer is correct in the array
@@ -166,15 +166,11 @@ function checkAnswer(event){
 }
 
 function sortScores(){
-    console.log(highScoreEntry);
-    console.log(highScoreEntry.score.length);
-    console.log(highScoreEntry.score[0]);
-    console.log(highScoreEntry.name[0]);
-    for(var i = 0; i < highScoreEntry.score.length;i++){
-        for(var x = 0; x < highScoreEntry.score.length; x++){
-            if(highScoreEntry.score[x] < highScoreEntry.score[i]){
-                [highScoreEntry.score[x],highScoreEntry.score[i]] = [highScoreEntry.score[i],highScoreEntry.score[x]];
-                [highScoreEntry.name[x],highScoreEntry.name[i]] = [highScoreEntry.name[i],highScoreEntry.name[x]];
+    for(var i = 0; i < entry.score.length;i++){
+        for(var x = 0; x < entry.score.length; x++){
+            if(entry.score[x] < entry.score[i]){
+                [entry.score[x],entry.score[i]] = [entry.score[i],entry.score[x]];
+                [entry.name[x],entry.name[i]] = [entry.name[i],entry.name[x]];
             }
         }
     }
@@ -182,17 +178,17 @@ function sortScores(){
 //swaps whether a high scores list is shown
 function swapScore(){ //only adds new elements if there are new scores
     if(highScore.getAttribute("data-state")==="off" && 
-        highScoreEntry.name.length > highScoreDisplay.childElementCount){
+        entry.name.length > highScoreDisplay.childElementCount){
         highScore.setAttribute("data-state", "on");
         highScore.setAttribute("class","on");
         sortScores();
-        for(var x = 0; x < highScoreEntry.name.length; x++){
+        for(var x = 0; x < entry.name.length; x++){
             tempLi = document.createElement("li");
-            if(highScoreEntry.name[x]===null||highScoreEntry.name[x]=== ""){ //if user didn't enter intials set name = NA
-                tempLi.textContent = "NA: " + highScoreEntry.score[x];
+            if(entry.name[x]===null||entry.name[x]=== ""){ //if user didn't enter intials set name = NA
+                tempLi.textContent = "NA: " + entry.score[x];
             }
             else{
-            tempLi.textContent = highScoreEntry.name[x] + ": " + highScoreEntry.score[x];
+            tempLi.textContent = entry.name[x] + ": " + entry.score[x];
             }
             highScoreDisplay.appendChild(tempLi);
         }
